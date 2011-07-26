@@ -1,7 +1,7 @@
-S3DB Connectity
+S3DB Connectivity
 ===============
 
-S3DB Connectity is a [RequireJS](http://requirejs.org/) module for interacting with [S3DB, the Simple and Sloppy Semantic Database](http://code.google.com/p/s3db/).
+S3DB Connectivity is a [RequireJS](http://requirejs.org/) module for interacting with [S3DB, the Simple and Sloppy Semantic Database](http://code.google.com/p/s3db/).
 
 Features
 --------
