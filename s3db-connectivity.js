@@ -12,13 +12,15 @@ define(function() {
             callback(new Error('Please provide the URL of the S3DB deployment via setDeployment.'));
         }
     };
-    var _s3qlQuery = function(query, callback) {
-        _checkDeployment(callback);
-        var queryNumber;
-        // Check if _key is defined.
+    var _checkKey = function(callback) {
         if(_key === undefined) {
             callback(new Error('Please provide an API key via setKey.'));
         }
+    };
+    var _s3qlQuery = function(query, callback) {
+        _checkDeployment(callback);
+        _checkKey(callback);
+        var queryNumber;
         if(_debug === true) {
             _queryCounter++;
             queryNumber = _queryCounter;
@@ -53,11 +55,8 @@ define(function() {
     };
     var _sparqlQuery = function(query, fromCache, callback) {
         _checkDeployment(callback);
+        _checkKey(callback);
         var queryNumber;
-        // Check if _key is defined.
-        if(_key === undefined) {
-            callback(new Error('Please provide an API key via setKey.'));
-        }
         if(_debug === true) {
             _queryCounter++;
             queryNumber = _queryCounter;
