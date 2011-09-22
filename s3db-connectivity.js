@@ -256,6 +256,9 @@ define(function() {
             _key = undefined;
         },
         setDeployment: function(deployment) {
+            if (deployment[deployment.length - 1] !== '/') {
+                deployment = deployment + '/';
+            }
             _deployment = deployment;
         },
         setKey: function(key) {
