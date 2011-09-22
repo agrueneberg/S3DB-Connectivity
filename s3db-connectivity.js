@@ -41,7 +41,6 @@ define(function() {
                 format: 'json'
             },
             dataType: 'jsonp',
-            cache: false,
             success: function(result) {
                 if(_debug === true) {
                     console.info('S3QL Query', queryNumber, 'Result:', result);
@@ -82,7 +81,6 @@ define(function() {
                 format: 'json'
             },
             dataType: 'jsonp',
-            cache: false,
             success: function(result) {
                 if(_debug === true) {
                     console.info('SPARQL Query', queryNumber, 'Result:', result);
@@ -112,7 +110,6 @@ define(function() {
                 format: 'json'
             },
             dataType: 'jsonp',
-            cache: false,
             success: function(result) {
                 if(_debug === true) {
                     console.info('Login Result: ', result);
