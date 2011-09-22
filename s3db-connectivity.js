@@ -1,32 +1,23 @@
 /**
- * Module: S3DB Connectivity
+ * RequireJS Module: S3DB Connectivity
+ * The first argument of each callback is reserved for an error object.
  */
 define(function() {
     var _deployment;
     var _key;
-    var _debug;
-    var _onError;
+    var _debug = false;
     var _queryCounter = 0;
-    var _initialize = function() {
-        // Fallback to alert, if _onError is not defined.
-        if(_onError === undefined) {
-            _onError = alert;
-        }
-        // Fallback to false, if _debug is not defined.
-        if(_debug === undefined) {
-            _debug = false;
-        }
-        // Check if _deployment is defined.
+    var _checkDeployment = function(callback) {
         if(_deployment === undefined) {
-            _onError('Please provide the URL of the S3DB deployment via setDeployment.');
+            callback(new Error('Please provide the URL of the S3DB deployment via setDeployment.'));
         }
     };
     var _s3qlQuery = function(query, callback) {
-        _initialize();
+        _checkDeployment(callback);
         var queryNumber;
         // Check if _key is defined.
         if(_key === undefined) {
-            _onError('Please provide an API key via setKey.');
+            callback(new Error('Please provide an API key via setKey.'));
         }
         if(_debug === true) {
             _queryCounter++;
@@ -48,24 +39,24 @@ define(function() {
                 // Error handling.
                 if(result.length === 0) {
                     // Empty result, call callback anyway.
-                    callback(result);
+                    callback(null, result);
                 } else {
                     if(result[0].error_code === undefined || result[0].error_code == '0') {
                         // No errors found, call callback.
-                        callback(result);
+                        callback(null, result);
                     } else {
-                        _onError(result[0].message);
+                        callback(new Error(result[0].message));
                     }
                 }
             }
         });
     };
     var _sparqlQuery = function(query, fromCache, callback) {
-        _initialize();
+        _checkDeployment(callback);
         var queryNumber;
         // Check if _key is defined.
         if(_key === undefined) {
-            _onError('Please provide an API key via setKey.');
+            callback(new Error('Please provide an API key via setKey.'));
         }
         if(_debug === true) {
             _queryCounter++;
@@ -88,20 +79,20 @@ define(function() {
                 // Error handling.
                 if(result.length === 0) {
                     // Empty result, call callback anyway.
-                    callback(result);
+                    callback(null, result);
                 } else {
                     if(result[0].error_code === undefined || result[0].error_code == '0') {
                         // No errors found, call callback.
-                        callback(result);
+                        callback(null, result);
                     } else {
-                        _onError(result[0].message);
+                        callback(new Error(result[0].message));
                     }
                 }
             }
         });
     };
     var _login = function(username, password, callback) {
-        _initialize();
+        _checkDeployment(callback);
         $.ajax({
             url: _deployment + 'apilogin.php',
             data: {
@@ -117,9 +108,9 @@ define(function() {
                 // Error handling.
                 if(result[0].error_code === undefined || result[0].error_code == '0') {
                     _key = result[0].key_id;
-                    callback(_key);
+                    callback(null, _key);
                 } else {
-                    _onError(result[0].message);
+                    callback(new Error(result[0].message));
                 }
             }
         });
@@ -270,9 +261,6 @@ define(function() {
         },
         setKey: function(key) {
             _key = key;
-        },
-        setOnError: function(onError) {
-            _onError = onError;
         },
         setDebug: function(debug) {
             _debug = debug;
