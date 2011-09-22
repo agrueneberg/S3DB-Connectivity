@@ -21,25 +21,29 @@ Usage
         var deployment = '';
         var username = '';
         var password = '';
-        var debug = false;
 
-        // Setup
+        // Set deployment
         s3dbConnectivity.setDeployment(deployment);
-        s3dbConnectivity.setDebug(debug);
+
+        // Login first
         s3dbConnectivity.login(username, password, function(err, key) {
             if (err !== null) {
-                console.error(err);
+                console.error('Login failed.', err);
             } else {
-                s3dbConnectivity.setKey(key);
-            }
-        });
+                console.log('Login succeeded.');
 
-        // Retrieve data
-        s3dbConnectivity.selectItemsByCollection('123', function(err, items) {
-            if (err !== null) {
-                console.error(err);
-            } else {
-                console.log(items);
+                // Set key
+                s3dbConnectivity.setKey(key);
+
+                // Retrieve data
+                s3dbConnectivity.selectItemsByCollection('123', function(err, items) {
+                    if (err !== null) {
+                        console.error('Retrieving items failed.', err);
+                    } else {
+                        console.log('Retrieving items succeeded.', items);
+                    }
+                });
+
             }
         });
 
