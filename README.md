@@ -58,3 +58,27 @@ Usage
         });
 
     }());
+
+
+Methods
+-------
+
+* `selectItem(itemId, callback)`
+* `selectItemsByCollection(collectionId, callback)`
+* `insertItem(collectionId, notes, callback)`
+* `updateItem(itemId, notes, callback)`
+* `deleteItem(itemId, callback)`
+* `selectStatementsByRuleAndItem(ruleId, itemId, callback)`
+* `selectStatementsByRuleAndValue(ruleId, value, callback)`
+* `selectStatementsByRuleAndItemAndValue(ruleId, itemId, value, callback)`
+* `insertStatement(itemId, ruleId, value, callback)`
+* `updateStatement(statementId, value, callback)`
+* `deleteStatement(statementId, callback)`
+* `s3qlQuery(query, callback)`
+* `sparqlQuery(query, callback)`
+* `cachedSparqlQuery(query, callback)`
+* `login(username, password, callback)`
+* `logout()`
+* `setDeployment(deployment)`
+* `setKey(key)`
+* `setDebug(debug)`
