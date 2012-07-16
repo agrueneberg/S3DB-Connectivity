@@ -28,19 +28,22 @@
             if (err !== null) {
                 callback(err);
             } else {
-                var queryNumber;
+                var queryNumber, queryParams;
                 if(_debug === true) {
                     _queryCounter++;
                     queryNumber = _queryCounter;
                     console.info("S3QL Query", queryNumber, ":", query);
                 }
+                queryParams = {
+                    query: query,
+                    format: "json"
+                };
+                if (_key !== undefined) {
+                    queryParams.key = _key;
+                }
                 $.ajax({
                     url: _deployment + "S3QL.php",
-                    data: {
-                        query: query,
-                        key: _key,
-                        format: "json"
-                    },
+                    data: queryParams,
                     dataType: "jsonp",
                     success: function (result) {
                         if(_debug === true) {
@@ -68,20 +71,23 @@
             if (err !== null) {
                 callback(err);
             } else {
-                var queryNumber;
+                var queryNumber, queryParams;
                 if(_debug === true) {
                     _queryCounter++;
                     queryNumber = _queryCounter;
                     console.info("SPARQL Query", queryNumber, ":", query);
                 }
+                queryParams = {
+                    query: query,
+                    clean: fromCache,
+                    format: "json"
+                };
+                if (_key !== undefined) {
+                    queryParams.key = _key;
+                }
                 $.ajax({
                     url: _deployment + "sparql.php",
-                    data: {
-                        query: query,
-                        key: _key,
-                        clean: fromCache,
-                        format: "json"
-                    },
+                    data: queryParams,
                     dataType: "jsonp",
                     success: function (result) {
                         if(_debug === true) {
