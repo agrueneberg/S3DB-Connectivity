@@ -13,7 +13,7 @@
         root.s3dbc = factory(root.jQuery);
     }
 }(this, function ($) {
-    var _deployment, _key, _debug, _queryCounter, _checkDeployment, _checkKey, _s3qlQuery, _sparqlQuery, _login;
+    var _deployment, _key, _debug, _queryCounter, _checkDeployment, _s3qlQuery, _sparqlQuery, _login;
     _debug = false;
     _queryCounter = 0;
     _checkDeployment = function (callback) {
@@ -23,54 +23,41 @@
             callback(null);
         }
     };
-    _checkKey = function (callback) {
-        if(_key === undefined) {
-            callback(new Error("Please provide an API key via setKey."));
-        } else {
-            callback(null);
-        }
-    };
     _s3qlQuery = function (query, callback) {
         _checkDeployment(function (err) {
             if (err !== null) {
                 callback(err);
             } else {
-                _checkKey(function (err) {
-                    var queryNumber;
-                    if (err !== null) {
-                        callback(err);
-                    } else {
+                var queryNumber;
+                if(_debug === true) {
+                    _queryCounter++;
+                    queryNumber = _queryCounter;
+                    console.info("S3QL Query", queryNumber, ":", query);
+                }
+                $.ajax({
+                    url: _deployment + "S3QL.php",
+                    data: {
+                        query: query,
+                        key: _key,
+                        format: "json"
+                    },
+                    dataType: "jsonp",
+                    success: function (result) {
                         if(_debug === true) {
-                            _queryCounter++;
-                            queryNumber = _queryCounter;
-                            console.info("S3QL Query", queryNumber, ":", query);
+                            console.info("S3QL Query", queryNumber, "Result:", result);
                         }
-                        $.ajax({
-                            url: _deployment + "S3QL.php",
-                            data: {
-                                query: query,
-                                key: _key,
-                                format: "json"
-                            },
-                            dataType: "jsonp",
-                            success: function (result) {
-                                if(_debug === true) {
-                                    console.info("S3QL Query", queryNumber, "Result:", result);
-                                }
-                                // Error handling.
-                                if(result.length === 0) {
-                                    // Empty result, call callback anyway.
-                                    callback(null, result);
-                                } else {
-                                    if(result[0].error_code === undefined || result[0].error_code == "0") {
-                                        // No errors found, call callback.
-                                        callback(null, result);
-                                    } else {
-                                        callback(new Error(result[0].message));
-                                    }
-                                }
+                        // Error handling.
+                        if(result.length === 0) {
+                            // Empty result, call callback anyway.
+                            callback(null, result);
+                        } else {
+                            if(result[0].error_code === undefined || result[0].error_code == "0") {
+                                // No errors found, call callback.
+                                callback(null, result);
+                            } else {
+                                callback(new Error(result[0].message));
                             }
-                        });
+                        }
                     }
                 });
             }
@@ -81,43 +68,37 @@
             if (err !== null) {
                 callback(err);
             } else {
-                _checkKey(function (err) {
-                    var queryNumber;
-                    if (err !== null) {
-                        callback(err);
-                    } else {
+                var queryNumber;
+                if(_debug === true) {
+                    _queryCounter++;
+                    queryNumber = _queryCounter;
+                    console.info("SPARQL Query", queryNumber, ":", query);
+                }
+                $.ajax({
+                    url: _deployment + "sparql.php",
+                    data: {
+                        query: query,
+                        key: _key,
+                        clean: fromCache,
+                        format: "json"
+                    },
+                    dataType: "jsonp",
+                    success: function (result) {
                         if(_debug === true) {
-                            _queryCounter++;
-                            queryNumber = _queryCounter;
-                            console.info("SPARQL Query", queryNumber, ":", query);
+                            console.info("SPARQL Query", queryNumber, "Result:", result);
                         }
-                        $.ajax({
-                            url: _deployment + "sparql.php",
-                            data: {
-                                query: query,
-                                key: _key,
-                                clean: fromCache,
-                                format: "json"
-                            },
-                            dataType: "jsonp",
-                            success: function (result) {
-                                if(_debug === true) {
-                                    console.info("SPARQL Query", queryNumber, "Result:", result);
-                                }
-                                // Error handling.
-                                if(result.length === 0) {
-                                    // Empty result, call callback anyway.
-                                    callback(null, result);
-                                } else {
-                                    if(result[0].error_code === undefined || result[0].error_code == "0") {
-                                        // No errors found, call callback.
-                                        callback(null, result);
-                                    } else {
-                                        callback(new Error(result[0].message));
-                                    }
-                                }
+                        // Error handling.
+                        if(result.length === 0) {
+                            // Empty result, call callback anyway.
+                            callback(null, result);
+                        } else {
+                            if(result[0].error_code === undefined || result[0].error_code == "0") {
+                                // No errors found, call callback.
+                                callback(null, result);
+                            } else {
+                                callback(new Error(result[0].message));
                             }
-                        });
+                        }
                     }
                 });
             }
