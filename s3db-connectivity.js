@@ -17,7 +17,7 @@
     _debug = false;
     _queryCounter = 0;
     _checkDeployment = function (callback) {
-        if(_deployment === undefined) {
+        if (_deployment === undefined) {
             callback(new Error("Please provide the URL of the S3DB deployment via setDeployment."));
         } else {
             callback(null);
@@ -29,7 +29,7 @@
                 callback(err);
             } else {
                 var queryNumber, queryParams;
-                if(_debug === true) {
+                if (_debug === true) {
                     _queryCounter++;
                     queryNumber = _queryCounter;
                     console.info("S3QL Query", queryNumber, ":", query);
@@ -46,15 +46,15 @@
                     data: queryParams,
                     dataType: "jsonp",
                     success: function (result) {
-                        if(_debug === true) {
+                        if (_debug === true) {
                             console.info("S3QL Query", queryNumber, "Result:", result);
                         }
                         // Error handling.
-                        if(result.length === 0) {
+                        if (result.length === 0) {
                             // Empty result, call callback anyway.
                             callback(null, result);
                         } else {
-                            if(result[0].error_code === undefined || result[0].error_code == "0") {
+                            if (result[0].error_code === undefined || result[0].error_code == "0") {
                                 // No errors found, call callback.
                                 callback(null, result);
                             } else {
@@ -72,7 +72,7 @@
                 callback(err);
             } else {
                 var queryNumber, queryParams;
-                if(_debug === true) {
+                if (_debug === true) {
                     _queryCounter++;
                     queryNumber = _queryCounter;
                     console.info("SPARQL Query", queryNumber, ":", query);
@@ -90,15 +90,15 @@
                     data: queryParams,
                     dataType: "jsonp",
                     success: function (result) {
-                        if(_debug === true) {
+                        if (_debug === true) {
                             console.info("SPARQL Query", queryNumber, "Result:", result);
                         }
                         // Error handling.
-                        if(result.length === 0) {
+                        if (result.length === 0) {
                             // Empty result, call callback anyway.
                             callback(null, result);
                         } else {
-                            if(result[0].error_code === undefined || result[0].error_code == "0") {
+                            if (result[0].error_code === undefined || result[0].error_code == "0") {
                                 // No errors found, call callback.
                                 callback(null, result);
                             } else {
@@ -124,11 +124,11 @@
                     },
                     dataType: "jsonp",
                     success: function (result) {
-                        if(_debug === true) {
+                        if (_debug === true) {
                             console.info("Login Result: ", result);
                         }
                         // Error handling.
-                        if(result[0].error_code === undefined || result[0].error_code == "0") {
+                        if (result[0].error_code === undefined || result[0].error_code == "0") {
                             _key = result[0].key_id;
                             callback(null, _key);
                         } else {
