@@ -63,22 +63,24 @@ Usage
 Methods
 -------
 
-* `selectItem(itemId, callback)`
-* `selectItemsByCollection(collectionId, callback)`
-* `insertItem(collectionId, notes, callback)`
-* `updateItem(itemId, notes, callback)`
-* `deleteItem(itemId, callback)`
-* `selectStatementsByRuleAndItem(ruleId, itemId, callback)`
-* `selectStatementsByRuleAndValue(ruleId, value, callback)`
-* `selectStatementsByRuleAndItemAndValue(ruleId, itemId, value, callback)`
-* `insertStatement(itemId, ruleId, value, callback)`
-* `updateStatement(statementId, value, callback)`
-* `deleteStatement(statementId, callback)`
-* `s3qlQuery(query, callback)`
-* `sparqlQuery(query, callback)`
-* `cachedSparqlQuery(query, callback)`
-* `login(username, password, callback)`
+The first argument of a callback function is reserved for an error object, a useful convention to allow error catching in asynchronous programming. If an error object is `null` no error occurred.
+
+* `selectItem(string itemId, (err, array results) callback)`
+* `selectItemsByCollection(string collectionId, (err, array results) callback)`
+* `insertItem(string collectionId, string notes, (err, array results) callback)`
+* `updateItem(string itemId, string notes, (err, array results) callback)`
+* `deleteItem(string itemId, (err, array results) callback)`
+* `selectStatementsByRuleAndItem(string ruleId, string itemId, (err, array results) callback)`
+* `selectStatementsByRuleAndValue(string ruleId, string value, (err, array results) callback)`
+* `selectStatementsByRuleAndItemAndValue(string ruleId, string itemId, string value, (err, array results) callback)`
+* `insertStatement(string itemId, string ruleId, string value, (err, array results) callback)`
+* `updateStatement(string statementId, string value, (err, array results) callback)`
+* `deleteStatement(string statementId, (err, array results) callback)`
+* `s3qlQuery(string query, (err, array results) callback)`
+* `sparqlQuery(string query, (err, array results) callback)`
+* `cachedSparqlQuery(string query, (err, array results) callback)`
+* `login(string username, string password, (err, string key) callback)`
 * `logout()`
-* `setDeployment(deployment)`
-* `setKey(key)`
-* `setDebug(debug)`
+* `setDeployment(string deployment)`
+* `setKey(string key)`
+* `setDebug(boolean debug)`
