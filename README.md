@@ -18,6 +18,38 @@ Features
 Usage
 -----
 
+### Public project (no login required)
+
+    <!-- S3DB Connectivity depends on jQuery. -->
+    <script src="jquery.js"></script>
+    <script src="s3db-connectivity.js"></script>
+    <script>
+
+        (function () {
+            "use strict";
+
+            var deployment;
+
+            deployment = "YOUR_DEPLOYMENT";
+
+         // First step: set S3DB deployment.
+            s3dbc.setDeployment(deployment);
+
+         // Second step: retrieve data.
+            s3dbc.selectItemsByCollection("YOUR_COLLECTION_ID", function (err, items) {
+                if (err !== null) {
+                    console.error("Retrieving items failed.", err);
+                } else {
+                    console.log("Retrieving items succeeded.", items);
+                }
+            });
+
+        }());
+
+    </script>
+
+### Private project (login required)
+
     <!-- S3DB Connectivity depends on jQuery. -->
     <script src="jquery.js"></script>
     <script src="s3db-connectivity.js"></script>
