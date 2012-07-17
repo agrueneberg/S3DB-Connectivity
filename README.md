@@ -19,6 +19,7 @@ Usage
 -----
 
     <!-- S3DB Connectivity depends on jQuery. -->
+    <script src="jquery.js"></script>
     <script src="s3db-connectivity.js"></script>
     <script>
 
@@ -34,7 +35,7 @@ Usage
             s3dbc.setDeployment(deployment);
 
          // Second step: login.
-            s3dbc.login(username, password, function(err, key) {
+            s3dbc.login(username, password, function (err, key) {
                 if (err !== null) {
                     console.error("Login failed.", err);
                 } else {
@@ -44,7 +45,7 @@ Usage
                     s3dbc.setKey(key);
 
                  // Fourth step: retrieve data.
-                    s3dbc.selectItemsByCollection("123", function(err, items) {
+                    s3dbc.selectItemsByCollection("YOUR_COLLECTION_ID", function (err, items) {
                         if (err !== null) {
                             console.error("Retrieving items failed.", err);
                         } else {
@@ -55,9 +56,9 @@ Usage
                 }
             });
 
-        });
+        }());
 
-    }());
+    </script>
 
 
 Methods
