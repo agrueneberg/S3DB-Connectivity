@@ -69,7 +69,7 @@ The first argument of a callback function is reserved for an error object, a use
 
 * `setDeployment(string deployment)`
 * `setKey(string key)`
-* `setDebug(boolean debug)`
+* `setDebug(boolean debug)` Enable or disable debug mode (default: false)
 
 ### Login & Logout
 
