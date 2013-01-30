@@ -146,7 +146,6 @@ The first argument of a callback function is reserved for an error object, a use
 ### Init
 
 * `setDeployment(string deployment)`
-* `setKey(string key)`
 * `setDebug(boolean debug)` Enable or disable debug mode (default: false)
 
 ### Login & Logout
