@@ -327,8 +327,8 @@
         cachedSparqlQuery: function (query, callback) {
             _sparqlQuery(query, 0, callback);
         },
-        login: function (username, password, callback) {
-            _login(username, password, callback);
+        login: function () {
+            _login.apply(this, arguments);
         },
         logout: function () {
             _key = undefined;
