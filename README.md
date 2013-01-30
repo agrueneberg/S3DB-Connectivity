@@ -48,7 +48,7 @@ Usage
 
     </script>
 
-### Private project (login required)
+### Private project (login required - username)
 
     <!-- S3DB Connectivity depends on jQuery. -->
     <script src="jquery.js"></script>
@@ -67,14 +67,14 @@ Usage
             s3dbc.setDeployment(deployment);
 
          // Second step: login.
-            s3dbc.login(username, password, function (err, key) {
+            s3dbc.login(username, password, function (err, data) {
                 if (err !== null) {
                     console.error("Login failed.", err);
                 } else {
                     console.log("Login succeeded.");
 
-                 // Third step: set key.
-                    s3dbc.setKey(key);
+                 // Third step: set user data.
+                    s3dbc.setData(data);
 
                  // Fourth step: retrieve data.
                     s3dbc.selectItemsByCollection("YOUR_COLLECTION_ID", function (err, items) {
@@ -85,6 +85,51 @@ Usage
                         }
                     });
 
+                }
+            });
+
+        }());
+
+    </script>
+
+### Private project (login required - apikey)
+
+    <!-- S3DB Connectivity depends on jQuery. -->
+    <script src="jquery.js"></script>
+    <script src="s3db-connectivity.js"></script>
+    <script>
+
+        (function () {
+
+            var deployment, apikey;
+
+            deployment = "YOUR_DEPLOYMENT";
+            apikey = "YOUR_APIKEY";
+
+         // First step: set S3DB deployment.
+            s3dbc.setDeployment(deployment);
+
+         // Second step [Optional]: determine if you will allow public access anyway if the connection is successful.
+            s3dbc.allowPublic();
+
+         // Third step: login.
+            s3dbc.login(apikey, function (err, data) {
+                if (err !== null) {
+                    console.error("Login failed.", err);
+                } else {
+                    console.log("Login succeeded.");
+
+                 // Fourth step: set user data.
+                    s3dbc.setData(data);
+
+                 // Fifth step: retrieve data.
+                    s3dbc.selectItemsByCollection("YOUR_COLLECTION_ID", function (err, items) {
+                        if (err !== null) {
+                            console.error("Retrieving items failed.", err);
+                        } else {
+                            console.log("Retrieving items succeeded.", items);
+                        }
+                    });
                 }
             });
 
@@ -106,7 +151,8 @@ The first argument of a callback function is reserved for an error object, a use
 
 ### Login & Logout
 
-* `login(string username, string password, (err, string key) callback)`
+* `login(string username, string password, (err, object userdata) callback)`
+* `login(string apikey, (err, object userdata) callback)`
 * `logout()`
 
 ### Items
