@@ -195,6 +195,17 @@
                 callback
             );
         },
+        selectStatementsByItem: function (itemId, callback) {
+            _s3qlQuery("<S3QL>"
+                + "<select>*</select>"
+                + "<from>statements</from>"
+                + "<where>"
+                + "<item_id>" + itemId + "</item_id>"
+                + "</where>"
+                + "</S3QL>",
+                callback
+            );
+        },
         selectStatementsByRuleAndItem: function (ruleId, itemId, callback) {
             _s3qlQuery("<S3QL>"
                 + "<select>*</select>"

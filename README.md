@@ -119,6 +119,7 @@ The first argument of a callback function is reserved for an error object, a use
 
 ### Statements
 
+* `selectStatementsByItem(string itemId, (err, array results) callback)`
 * `selectStatementsByRuleAndItem(string ruleId, string itemId, (err, array results) callback)`
 * `selectStatementsByRuleAndValue(string ruleId, string value, (err, array results) callback)`
 * `selectStatementsByRuleAndItemAndValue(string ruleId, string itemId, string value, (err, array results) callback)`
