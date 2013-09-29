@@ -26,7 +26,9 @@
     _s3qlQuery = function (query, callback) {
         _checkDeployment(function (err) {
             if (err !== null) {
-                callback(err);
+                setTimeout(function () {
+                    callback(err);
+                }, 0);
             } else {
                 var queryNumber, queryParams;
                 if (_debug === true) {
@@ -69,7 +71,9 @@
     _sparqlQuery = function (query, fromCache, callback) {
         _checkDeployment(function (err) {
             if (err !== null) {
-                callback(err);
+                setTimeout(function () {
+                    callback(err);
+                }, 0);
             } else {
                 var queryNumber, queryParams;
                 if (_debug === true) {
@@ -113,7 +117,9 @@
     _login = function (username, password, callback) {
         _checkDeployment(function (err) {
             if (err !== null) {
-                callback(err);
+                setTimeout(function () {
+                    callback(err);
+                }, 0);
             } else {
                 $.ajax({
                     url: _deployment + "apilogin.php",
