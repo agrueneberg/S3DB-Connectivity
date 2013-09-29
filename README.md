@@ -18,6 +18,8 @@ Features
 Usage
 -----
 
+S3DB Connectivity depends on jQuery.
+
 ### Public project (no login required)
 
     <!-- S3DB Connectivity depends on jQuery. -->
