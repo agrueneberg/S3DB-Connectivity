@@ -1,9 +1,9 @@
 S3DB Connectivity
 ===============
 
-S3DB Connectivity is a browser module for interacting with [S3DB, the Simple and Sloppy Semantic Database](http://s3db.org).
-
 [![Project Status: Unsupported - The project has reached a stable, usable state but the author(s) have ceased all work on it. A new maintainer may be desired.](http://www.repostatus.org/badges/0.1.0/unsupported.svg)](http://www.repostatus.org/#unsupported)
+
+S3DB Connectivity is a browser module for interacting with [S3DB, the Simple and Sloppy Semantic Database](http://s3db.org).
 
 Features
 --------
